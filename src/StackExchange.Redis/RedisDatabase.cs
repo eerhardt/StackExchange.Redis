@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Buffers;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading.Tasks;
 using Pipelines.Sockets.Unofficial.Arenas;
@@ -1531,11 +1532,15 @@ namespace StackExchange.Redis
             return ExecuteSync(msg, ResultProcessor.ScriptResult, defaultValue: RedisResult.NullSingle);
         }
 
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public RedisResult ScriptEvaluate(LuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None)
         {
             return script.Evaluate(this, parameters, null, flags);
         }
 
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public RedisResult ScriptEvaluate(LoadedLuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None)
         {
             return script.Evaluate(this, parameters, withKeyPrefix: null, flags);
@@ -1563,11 +1568,15 @@ namespace StackExchange.Redis
             return ExecuteAsync(msg, ResultProcessor.ScriptResult, defaultValue: RedisResult.NullSingle);
         }
 
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public Task<RedisResult> ScriptEvaluateAsync(LuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None)
         {
             return script.EvaluateAsync(this, parameters, null, flags);
         }
 
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public Task<RedisResult> ScriptEvaluateAsync(LoadedLuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None)
         {
             return script.EvaluateAsync(this, parameters, withKeyPrefix: null, flags);

@@ -336,10 +336,14 @@ namespace StackExchange.Redis.KeyspaceIsolation
             // TODO: The return value could contain prefixed keys. It might make sense to 'unprefix' those?
             Inner.ScriptEvaluateAsync(script, ToInner(keys), values, flags);
 
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public Task<RedisResult> ScriptEvaluateAsync(LuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None) =>
             // TODO: The return value could contain prefixed keys. It might make sense to 'unprefix' those?
             script.EvaluateAsync(Inner, parameters, Prefix, flags);
 
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public Task<RedisResult> ScriptEvaluateAsync(LoadedLuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None) =>
             // TODO: The return value could contain prefixed keys. It might make sense to 'unprefix' those?
             script.EvaluateAsync(Inner, parameters, Prefix, flags);

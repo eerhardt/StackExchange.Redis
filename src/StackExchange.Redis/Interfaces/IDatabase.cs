@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
 namespace StackExchange.Redis
@@ -1288,6 +1289,8 @@ namespace StackExchange.Redis
         /// <param name="flags">The flags to use for this operation.</param>
         /// <returns>A dynamic representation of the script's result.</returns>
         /// <remarks><seealso href="https://redis.io/commands/eval"/></remarks>
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         RedisResult ScriptEvaluate(LuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
@@ -1300,6 +1303,8 @@ namespace StackExchange.Redis
         /// <param name="flags">The flags to use for this operation.</param>
         /// <returns>A dynamic representation of the script's result.</returns>
         /// <remarks><seealso href="https://redis.io/commands/eval"/></remarks>
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         RedisResult ScriptEvaluate(LoadedLuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None);
 
         /// <summary>

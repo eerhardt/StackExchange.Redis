@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
 namespace StackExchange.Redis.KeyspaceIsolation
@@ -325,10 +326,14 @@ namespace StackExchange.Redis.KeyspaceIsolation
             // TODO: The return value could contain prefixed keys. It might make sense to 'unprefix' those?
             Inner.ScriptEvaluate(script, ToInner(keys), values, flags);
 
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public RedisResult ScriptEvaluate(LuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None) =>
             // TODO: The return value could contain prefixed keys. It might make sense to 'unprefix' those?
             script.Evaluate(Inner, parameters, Prefix, flags);
 
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public RedisResult ScriptEvaluate(LoadedLuaScript script, object? parameters = null, CommandFlags flags = CommandFlags.None) =>
             // TODO: The return value could contain prefixed keys. It might make sense to 'unprefix' those?
             script.Evaluate(Inner, parameters, Prefix, flags);

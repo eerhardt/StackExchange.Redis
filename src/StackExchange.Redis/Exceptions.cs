@@ -22,7 +22,6 @@ namespace StackExchange.Redis
         /// <param name="innerException">The inner exception.</param>
         public RedisCommandException(string message, Exception innerException) : base(message, innerException) { }
 
-        private RedisCommandException(SerializationInfo info, StreamingContext ctx) : base(info, ctx) { }
     }
 
     /// <summary>
@@ -45,21 +44,6 @@ namespace StackExchange.Redis
         /// status of the command while communicating with Redis.
         /// </summary>
         public CommandStatus Commandstatus { get; }
-
-        private RedisTimeoutException(SerializationInfo info, StreamingContext ctx) : base(info, ctx)
-        {
-            Commandstatus = info.GetValue("commandStatus", typeof(CommandStatus)) as CommandStatus? ?? CommandStatus.Unknown;
-        }
-        /// <summary>
-        /// Serialization implementation; not intended for general usage.
-        /// </summary>
-        /// <param name="info">Serialization info.</param>
-        /// <param name="context">Serialization context.</param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-            info.AddValue("commandStatus", Commandstatus);
-        }
     }
 
     /// <summary>
@@ -105,23 +89,6 @@ namespace StackExchange.Redis
         /// Status of the command while communicating with Redis.
         /// </summary>
         public CommandStatus CommandStatus { get; }
-
-        private RedisConnectionException(SerializationInfo info, StreamingContext ctx) : base(info, ctx)
-        {
-            FailureType = (ConnectionFailureType)info.GetInt32("failureType");
-            CommandStatus = info.GetValue("commandStatus", typeof(CommandStatus)) as CommandStatus? ?? CommandStatus.Unknown;
-        }
-        /// <summary>
-        /// Serialization implementation; not intended for general usage.
-        /// </summary>
-        /// <param name="info">Serialization info.</param>
-        /// <param name="context">Serialization context.</param>
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-            info.AddValue("failureType", (int)FailureType);
-            info.AddValue("commandStatus", CommandStatus);
-        }
     }
 
     /// <summary>
@@ -142,13 +109,6 @@ namespace StackExchange.Redis
         /// <param name="message">The message for the exception.</param>
         /// <param name="innerException">The inner exception.</param>
         public RedisException(string message, Exception? innerException) : base(message, innerException) { }
-
-        /// <summary>
-        /// Deserialization constructor; not intended for general usage.
-        /// </summary>
-        /// <param name="info">Serialization info.</param>
-        /// <param name="ctx">Serialization context.</param>
-        protected RedisException(SerializationInfo info, StreamingContext ctx) : base(info, ctx) { }
     }
 
     /// <summary>
@@ -163,6 +123,5 @@ namespace StackExchange.Redis
         /// <param name="message">The message for the exception.</param>
         public RedisServerException(string message) : base(message) { }
 
-        private RedisServerException(SerializationInfo info, StreamingContext ctx) : base(info, ctx) { }
     }
 }

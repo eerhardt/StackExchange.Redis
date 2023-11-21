@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace StackExchange.Redis
@@ -97,6 +98,8 @@ namespace StackExchange.Redis
             return ret;
         }
 
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         internal void ExtractParameters(object? ps, RedisKey? keyPrefix, out RedisKey[]? keys, out RedisValue[]? args)
         {
             if (HasArguments)
@@ -145,6 +148,8 @@ namespace StackExchange.Redis
         /// <param name="ps">The parameter object to use.</param>
         /// <param name="withKeyPrefix">The key prefix to use, if any.</param>
         /// <param name="flags">The command flags to use.</param>
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public RedisResult Evaluate(IDatabase db, object? ps = null, RedisKey? withKeyPrefix = null, CommandFlags flags = CommandFlags.None)
         {
             ExtractParameters(ps, withKeyPrefix, out RedisKey[]? keys, out RedisValue[]? args);
@@ -158,6 +163,8 @@ namespace StackExchange.Redis
         /// <param name="ps">The parameter object to use.</param>
         /// <param name="withKeyPrefix">The key prefix to use, if any.</param>
         /// <param name="flags">The command flags to use.</param>
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public Task<RedisResult> EvaluateAsync(IDatabaseAsync db, object? ps = null, RedisKey? withKeyPrefix = null, CommandFlags flags = CommandFlags.None)
         {
             ExtractParameters(ps, withKeyPrefix, out RedisKey[]? keys, out RedisValue[]? args);
@@ -265,6 +272,8 @@ namespace StackExchange.Redis
         /// <param name="ps">The parameter object to use.</param>
         /// <param name="withKeyPrefix">The key prefix to use, if any.</param>
         /// <param name="flags">The command flags to use.</param>
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public RedisResult Evaluate(IDatabase db, object? ps = null, RedisKey? withKeyPrefix = null, CommandFlags flags = CommandFlags.None)
         {
             Original.ExtractParameters(ps, withKeyPrefix, out RedisKey[]? keys, out RedisValue[]? args);
@@ -283,6 +292,8 @@ namespace StackExchange.Redis
         /// <param name="ps">The parameter object to use.</param>
         /// <param name="withKeyPrefix">The key prefix to use, if any.</param>
         /// <param name="flags">The command flags to use.</param>
+        [RequiresUnreferencedCode("not safe")]
+        [RequiresDynamicCode("not safe")]
         public Task<RedisResult> EvaluateAsync(IDatabaseAsync db, object? ps = null, RedisKey? withKeyPrefix = null, CommandFlags flags = CommandFlags.None)
         {
             Original.ExtractParameters(ps, withKeyPrefix, out RedisKey[]? keys, out RedisValue[]? args);

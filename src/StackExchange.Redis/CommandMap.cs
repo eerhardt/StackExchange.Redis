@@ -127,7 +127,7 @@ namespace StackExchange.Redis
             {
                 var dictionary = new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase);
                 // nix everything
-                foreach (RedisCommand command in (RedisCommand[])Enum.GetValues(typeof(RedisCommand)))
+                foreach (RedisCommand command in Enum.GetValues<RedisCommand>())
                 {
                     dictionary[command.ToString()] = null;
                 }
@@ -206,7 +206,7 @@ namespace StackExchange.Redis
 
         private static CommandMap CreateImpl(Dictionary<string, string?>? caseInsensitiveOverrides, HashSet<RedisCommand>? exclusions)
         {
-            var commands = (RedisCommand[])Enum.GetValues(typeof(RedisCommand));
+            var commands = Enum.GetValues<RedisCommand>();
 
             var map = new CommandBytes[commands.Length];
             for (int i = 0; i < commands.Length; i++)

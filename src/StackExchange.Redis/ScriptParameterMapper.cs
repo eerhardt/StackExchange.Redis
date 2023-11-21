@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -164,7 +165,18 @@ namespace StackExchange.Redis
         /// <param name="script">The script to match against.</param>
         /// <param name="missingMember">The first missing member, if any.</param>
         /// <param name="badTypeMember">The first type mismatched member, if any.</param>
-        public static bool IsValidParameterHash(Type t, LuaScript script, out string? missingMember, out string? badTypeMember)
+        public static bool IsValidParameterHash(
+#if NET5_0_OR_GREATER
+            [DynamicallyAccessedMembers(
+            DynamicallyAccessedMemberTypes.PublicFields |
+            DynamicallyAccessedMemberTypes.PublicMethods |
+            DynamicallyAccessedMemberTypes.PublicEvents |
+            DynamicallyAccessedMemberTypes.PublicProperties |
+            DynamicallyAccessedMemberTypes.PublicConstructors |
+            DynamicallyAccessedMemberTypes.PublicNestedTypes)]
+#endif
+            Type t,
+            LuaScript script, out string? missingMember, out string? badTypeMember)
         {
             for (var i = 0; i < script.Arguments.Length; i++)
             {
@@ -207,7 +219,19 @@ namespace StackExchange.Redis
         /// </summary>
         /// <param name="t">The type to extract for.</param>
         /// <param name="script">The script to extract for.</param>
-        public static Func<object, RedisKey?, ScriptParameters> GetParameterExtractor(Type t, LuaScript script)
+        [RequiresDynamicCode("not safe")]
+        public static Func<object, RedisKey?, ScriptParameters> GetParameterExtractor(
+#if NET5_0_OR_GREATER
+            [DynamicallyAccessedMembers(
+            DynamicallyAccessedMemberTypes.PublicFields |
+            DynamicallyAccessedMemberTypes.PublicMethods |
+            DynamicallyAccessedMemberTypes.PublicEvents |
+            DynamicallyAccessedMemberTypes.PublicProperties |
+            DynamicallyAccessedMemberTypes.PublicConstructors |
+            DynamicallyAccessedMemberTypes.PublicNestedTypes)]
+#endif
+            Type t,
+                    LuaScript script)
         {
             if (!IsValidParameterHash(t, script, out _, out _)) throw new Exception("Shouldn't be possible");
 
@@ -251,9 +275,9 @@ namespace StackExchange.Redis
             }
             else
             {
-                var needsKeyPrefix = Expression.Property(keyPrefix, nameof(Nullable<RedisKey>.HasValue));
+                var needsKeyPrefix = Expression.Property(keyPrefix, typeof(RedisKey?).GetProperty(nameof(Nullable<RedisKey>.HasValue))!);
                 var keyPrefixValueArr = new[] { Expression.Call(keyPrefix,
-                    nameof(Nullable<RedisKey>.GetValueOrDefault), null, null) };
+                    typeof(RedisKey?).GetMethod(nameof(Nullable<RedisKey>.GetValueOrDefault))!) };
                 var prepend = typeof(RedisKey).GetMethod(nameof(RedisKey.Prepend),
                     BindingFlags.Public | BindingFlags.Instance)!;
                 asRedisValue = typeof(RedisKey).GetMethod(nameof(RedisKey.AsRedisValue),

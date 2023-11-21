@@ -35,14 +35,12 @@ override StackExchange.Redis.NameValueEntry.ToString() -> string!
 override StackExchange.Redis.RedisChannel.Equals(object? obj) -> bool
 override StackExchange.Redis.RedisChannel.GetHashCode() -> int
 override StackExchange.Redis.RedisChannel.ToString() -> string!
-override StackExchange.Redis.RedisConnectionException.GetObjectData(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
 override StackExchange.Redis.RedisFeatures.Equals(object? obj) -> bool
 override StackExchange.Redis.RedisFeatures.GetHashCode() -> int
 override StackExchange.Redis.RedisFeatures.ToString() -> string!
 override StackExchange.Redis.RedisKey.Equals(object? obj) -> bool
 override StackExchange.Redis.RedisKey.GetHashCode() -> int
 override StackExchange.Redis.RedisKey.ToString() -> string!
-override StackExchange.Redis.RedisTimeoutException.GetObjectData(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext context) -> void
 override StackExchange.Redis.RedisValue.Equals(object? obj) -> bool
 override StackExchange.Redis.RedisValue.GetHashCode() -> int
 override StackExchange.Redis.RedisValue.ToString() -> string!
@@ -1286,7 +1284,6 @@ StackExchange.Redis.RedisErrorEventArgs.RedisErrorEventArgs(object! sender, Syst
 StackExchange.Redis.RedisException
 StackExchange.Redis.RedisException.RedisException(string! message) -> void
 StackExchange.Redis.RedisException.RedisException(string! message, System.Exception? innerException) -> void
-StackExchange.Redis.RedisException.RedisException(System.Runtime.Serialization.SerializationInfo! info, System.Runtime.Serialization.StreamingContext ctx) -> void
 StackExchange.Redis.RedisFeatures
 StackExchange.Redis.RedisFeatures.BitwiseOperations.get -> bool
 StackExchange.Redis.RedisFeatures.ClientName.get -> bool
